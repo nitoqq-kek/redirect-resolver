@@ -1,0 +1,5 @@
+pytest==5.2.1
+pytest-aiohttp==0.3.0
+
+-r ./testing-server.txt
+-r ./resolver.txt

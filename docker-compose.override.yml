@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+  testing-server:
+    image: testing-server
+    ports:
+      - 5000
+    build:
+      context: .
+      dockerfile: testing-server.Dockerfile
