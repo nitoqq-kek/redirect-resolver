@@ -1,6 +1,6 @@
-#Redirect Resolver
+# Redirect Resolver
 
-###Основная логика
+### Основная логика
 
 1) Запрашиваем URL
 2) Если средиректило больше чем 10 раз то возвращаем результат TooManyRedirects
@@ -18,7 +18,7 @@ class Result(pydantic.BaseModel):
 записывем в файл в `jsonl` формате
 
 
-###Запуск
+### Запуск
 
 #### Сборка контейнеров
 ```bash
