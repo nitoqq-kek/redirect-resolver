@@ -1,3 +1,5 @@
+import uuid
+
 from aiohttp import web
 
 routes = web.RouteTableDef()
@@ -76,6 +78,11 @@ async def content(request):
 @routes.get("/redirect-to-content")
 async def redirect_to_content(request):
     raise web.HTTPFound("/content")
+
+
+@routes.get("/infinite-non-cyclic-redirect")
+async def redirect_to_content(request):
+    raise web.HTTPFound(f"/infinite-non-cyclic-redirect?i={uuid.uuid4()}")
 
 
 app = web.Application()

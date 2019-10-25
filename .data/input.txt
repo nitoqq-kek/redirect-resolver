@@ -1,4 +1,5 @@
 http://testing-server:5000/redirect-to-content
+http://testing-server:5000/infinite-non-cyclic-redirect
 http://testing-server:5000/redirect-with-large-body
 http://testing-server:5000/cyclic-redirect1
 http://testing-server:5000/content

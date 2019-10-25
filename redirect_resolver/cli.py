@@ -18,11 +18,13 @@ def main(v):
 
 @main.command("resolve")
 @click.option("-c", "--concurrency", "concurrency", type=int, default=100)
+@click.option("-r", "--max-redirects", "max_redirects", type=int, default=10)
+@click.option("-rt", "--request-timeout", "request_timeout", type=int, default=60)
 @click.argument("input_file")
 @click.argument("output_file")
 @asyncio_command
-async def run_resolver(input_file, output_file, concurrency):
-    resolver = UrlResolver(max_workers=concurrency)
+async def run_resolver(input_file, output_file, concurrency, max_redirects, request_timeout):
+    resolver = UrlResolver(max_workers=concurrency, timeout=request_timeout, max_redirects=max_redirects)
     with open(input_file, "r") as inp, open(output_file, "w") as o:
         async for res in resolver.resolve(inp):
             o.write(res.json(skip_defaults=True) + "\n")
