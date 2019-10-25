@@ -32,6 +32,24 @@ async def infinite_content(request):
         return response
 
 
+@routes.get("/redirect-with-large-body")
+async def redirect_with_large_body(request):
+    size = 1024 * 1024 * 1024
+
+    response = web.StreamResponse(status=302, headers={'Location': '/content'})
+    response.content_type = "text/plain"
+    response.content_length = size
+
+    await response.prepare(request)
+
+    try:
+        for i in range(size):
+            await response.write(b"a")
+    finally:
+        await response.write_eof()
+    return response
+
+
 @routes.get("/large-content")
 async def large_content(request):
     size = 1024 * 1024 * 1024

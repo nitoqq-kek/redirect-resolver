@@ -59,13 +59,17 @@ class UrlResolver:
                     log.debug("Finished processing URL: %s", url)
 
     async def put_urls(self, urls: t.Union[t.AsyncIterable, t.Iterable]):
+        async def _put(url):
+            url = url.strip()
+            if url:
+                await self._input_queue.put(u.strip())
         try:
             if isinstance(urls, t.AsyncIterable):
                 async for u in urls:
-                    await self._input_queue.put(u.strip())
+                    await _put(u)
             else:
                 for u in urls:
-                    await self._input_queue.put(u.strip())
+                    await _put(u)
             await self._input_queue.join()
         finally:
             await self._output_queue.put(None)

@@ -14,6 +14,7 @@ async def test_resolver(server: TestServer):
         server.make_url("/large-content"),
         server.make_url("/content"),
         server.make_url("/redirect-to-content"),
+        server.make_url("/redirect-with-large-body"),
     ]
     res = [i.dict(skip_defaults=True) async for i in resolver.resolve(map(str, urls))]
     assert sorted(res, key=itemgetter("url")) == [
@@ -38,6 +39,12 @@ async def test_resolver(server: TestServer):
         },
         {
             "url": str(server.make_url("/redirect-to-content")),
+            "real_url": str(server.make_url("/content")),
+            "content_length": 12,
+            "http_status": 200,
+        },
+        {
+            "url": str(server.make_url("/redirect-with-large-body")),
             "real_url": str(server.make_url("/content")),
             "content_length": 12,
             "http_status": 200,
