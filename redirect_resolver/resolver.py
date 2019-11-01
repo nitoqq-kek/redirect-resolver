@@ -1,13 +1,10 @@
 from __future__ import annotations
 
-import logging
 import typing as t
 
 import aiohttp
 from aiohttp import InvalidURL, hdrs
 from yarl import URL
-
-log = logging.getLogger(__name__)
 
 
 def get_redirect_url(resp) -> t.Optional[URL]:
