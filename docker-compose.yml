@@ -1,15 +1,5 @@
 version: "3.5"
 services:
-  redirect-resolver:
-    image: redirect-resolver
-    build:
-      context: .
-      dockerfile: resolver.Dockerfile
-    links:
-      - testing-server
-    volumes:
-      - ./.data:/data/
-
   redirect-resolver-test:
     image: redirect-resolver-test
     build:

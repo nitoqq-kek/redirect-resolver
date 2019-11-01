@@ -1,13 +1,15 @@
-FROM redirect-resolver
+FROM python:3.7-slim-buster
 
-COPY /requirements/ /tmp/requirements
+RUN pip install pip==19.3.1
+
+COPY /requirements/test.txt /tmp/requirements/test.txt
 
 RUN pip install -r /tmp/requirements/test.txt
 
-COPY /tests /tests
+COPY /redirect_resolver /code/redirect_resolver
 COPY /testing_server /code/testing_server
-
-ENTRYPOINT [""]
+COPY /tests /tests
+ENV PYTHONPATH=/code/
 
 CMD ["pytest", "-v", "/tests"]
 
